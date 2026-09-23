@@ -1,53 +1,68 @@
 # VKU Study Room Booking
 
-React Native and Expo SDK 57 app for discovering VKU study rooms, checking current availability, and creating local booking passes.
+Ứng dụng React Native và Expo SDK 57 giúp sinh viên VKU tìm kiếm, kiểm tra và đặt phòng học nhóm.
 
-## Run locally
+## Chạy dự án
 
-```bash
+```powershell
+cd D:\2_baitap\FL\vku-room-booking
 npm install
-npx expo start
+npx expo start --lan --clear --port 8083
 ```
 
-Use Expo Go for local UI testing. Local notifications are supported in Expo Go; Android remote push notifications require a development build.
+Điện thoại và máy tính cần cùng mạng. Nếu Wi-Fi trường chặn kết nối giữa các thiết bị, hãy dùng hotspot điện thoại hoặc chạy trên web:
 
-## Features
+```powershell
+npx expo start --web
+```
 
-- 15 rooms with building, capacity, images, and amenity metadata
-- Search by room name, building, or equipment
-- Building, capacity, and amenity filters persisted with Zustand
-- Seven-day date picker and four discrete two-hour slots
-- Conflict prevention against active local bookings
-- Current `Available now` / `Occupied` status on room cards
-- Booking cancellation and persisted booking history
-- QR booking pass generated from booking JSON
-- Local reminder notification scheduled 15 minutes before the slot
-- FlatList tuning and memoized room cards for smooth scrolling
+Quét QR mới hiển thị trong Terminal bằng Expo Go. Không quét QR cũ hoặc địa chỉ `127.0.0.1` trên điện thoại.
 
-## Architecture
+## Kiểm tra chất lượng
+
+```powershell
+npx tsc --noEmit
+npx expo-doctor
+npx expo export --platform android --no-bytecode --clear
+```
+
+## Chức năng
+
+- Hiển thị 15 phòng với ảnh, tòa nhà, sức chứa và thiết bị.
+- Tìm kiếm theo tên phòng, tòa nhà hoặc thiết bị.
+- Lọc theo tòa A/B/C/V, sức chứa và tiện ích.
+- Lưu booking, bộ lọc và phiên sinh viên mẫu bằng Zustand + AsyncStorage.
+- Chọn ngày trong 7 ngày và bốn khung giờ 2 tiếng.
+- Vô hiệu hóa khung giờ đã có người đặt và kiểm tra lại trước khi lưu.
+- Hiển thị trạng thái phòng, hủy booking và lưu lịch sử.
+- Hiển thị đầy đủ thông tin đặt phòng kèm QR booking pass.
+- FlatList tối ưu với `React.memo` và các cấu hình render phù hợp.
+- Nhắc lịch local trước 15 phút trong development build.
+
+## Lưu ý về thông báo
+
+Android Expo Go từ SDK 53 không cung cấp native notification API. App không lấy Push Token. Trên Expo Go, luồng đặt phòng và QR vẫn hoạt động; muốn kiểm thử notification cần dùng Expo development build.
+
+## Cấu trúc thư mục
 
 ```text
 src/
   components/     RoomCard, FilterBar, QRModal
-  constants/      Mock room data
-  navigation/     Typed stack and tab route params
+  constants/      Dữ liệu mẫu 15 phòng
+  navigation/     Kiểu route Stack và Bottom Tab
   screens/        Home, RoomDetail, MyBookings
-  store/          Persisted Zustand booking/session/filter state
-  types/          Shared TypeScript models
-  utils/          Notification scheduling
+  store/          Zustand store có persist
+  types/          Kiểu dữ liệu dùng chung
+  utils/          Lập lịch notification
+baocao/           Mẫu báo cáo, bị loại khỏi Git
 ```
 
-Booking writes go through `useBookingStore`. The detail screen re-checks the selected room/date/slot immediately before adding a booking. Cancelled records remain in the persisted list as booking history and no longer block availability.
+## Nộp bài
 
-## Submission checklist
+- GitHub: https://github.com/hvdat-279/room-booking
+- Demo: bổ sung link Expo Snack, APK hoặc video 2-3 phút.
+- Báo cáo: hoàn thiện `baocao/REPORT_TEMPLATE.md`, thêm 3-4 ảnh thật và xuất PDF 2-4 trang. Thư mục `baocao/` được ignore và không đẩy lên Git.
 
-- Live demo: add an Expo Snack, APK, or video link before submission.
-- GitHub: publish this repository and keep the commit history focused.
-- Report: complete [REPORT_TEMPLATE.md](REPORT_TEMPLATE.md), add emulator screenshots, export it as a 2-4 page PDF, and replace the placeholder student and demo links.
+## Giới hạn hiện tại
 
-## Validation
-
-```bash
-npx tsc --noEmit
-npx expo-doctor
-```
+Dữ liệu booking hiện lưu cục bộ trên thiết bị, chưa đồng bộ giữa nhiều người dùng. Để có real-time thật, cần thêm Firebase hoặc Supabase, đăng nhập sinh viên và backend quản lý phòng.

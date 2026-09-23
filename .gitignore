@@ -9,6 +9,9 @@ dist/
 web-build/
 expo-env.d.ts
 
+# Private submission materials
+baocao/
+
 # Native
 .kotlin/
 *.orig.*
