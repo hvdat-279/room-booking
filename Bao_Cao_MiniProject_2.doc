@@ -1,0 +1,135 @@
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+    <meta charset="utf-8">
+    <title>Báo cáo Kỹ thuật Mini-Project 2</title>
+    <style>
+        body { font-family: 'Times New Roman', serif; font-size: 14pt; line-height: 1.5; }
+        h1 { font-size: 20pt; text-align: center; text-transform: uppercase; }
+        h2 { font-size: 16pt; color: #333; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .text-center { text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>BÁO CÁO KỸ THUẬT MINI-PROJECT 2</h1>
+    <p><b>Môn học:</b> Lập trình ứng dụng di động đa nền tảng (VKU)</p>
+    <p><b>Tên đề tài:</b> Ứng dụng đặt phòng học nhóm theo thời gian thực (VKU Room Booking)</p>
+    <p><b>Sinh viên thực hiện:</b> [Điền Tên Của Bạn]</p>
+    <p><b>Mã sinh viên:</b> [Điền MSSV]</p>
+    <p><b>Ngày nộp:</b> [DD/MM/YYYY]</p>
+
+    <h2>1. Thông tin chung và liên kết nộp bài</h2>
+    <ul>
+        <li><b>Demo trực tiếp / APK:</b> [Điền link Google Drive chứa file APK hoặc link Expo]</li>
+        <li><b>Video demo:</b> [Điền link YouTube/Drive quay lại màn hình lúc test app 2-3 phút]</li>
+        <li><b>GitHub:</b> https://github.com/hvdat-279/room-booking</li>
+    </ul>
+
+    <h2>2. Bảng kiểm tra chức năng (Nghiệm thu)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th class="text-center">STT</th>
+                <th>Chức năng</th>
+                <th class="text-center">Trạng thái</th>
+                <th>Mô tả nghiệm thu</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-center">1</td>
+                <td><b>Đăng nhập / Hồ sơ</b></td>
+                <td class="text-center">Hoàn thành</td>
+                <td>Màn hình Login toàn màn hình. Yêu cầu sinh viên nhập Họ tên và MSSV trước khi sử dụng app. Tích hợp Tab "Hồ sơ" để quản lý phiên đăng nhập.</td>
+            </tr>
+            <tr>
+                <td class="text-center">2</td>
+                <td><b>Khám phá phòng</b></td>
+                <td class="text-center">Hoàn thành</td>
+                <td>Dùng FlatList tối ưu hiệu năng hiển thị 15 phòng học (Lab, Studio, Hội trường...) với đầy đủ ảnh, sức chứa, thiết bị.</td>
+            </tr>
+            <tr>
+                <td class="text-center">3</td>
+                <td><b>Tìm kiếm và bộ lọc</b></td>
+                <td class="text-center">Hoàn thành</td>
+                <td>Lọc tức thời theo Tòa nhà (A, B, C, V), Sức chứa và Tiện ích (Máy chiếu, PC, Điều hòa...).</td>
+            </tr>
+            <tr>
+                <td class="text-center">4</td>
+                <td><b>Chọn lịch 7 ngày</b></td>
+                <td class="text-center">Hoàn thành</td>
+                <td>Cho phép chọn ngày trong tuần và 4 khung giờ cố định (2 tiếng/khung).</td>
+            </tr>
+            <tr>
+                <td class="text-center">5</td>
+                <td><b>Đồng bộ thời gian thực</b></td>
+                <td class="text-center">Hoàn thành vượt mức</td>
+                <td>Tích hợp <b>Firebase Firestore</b>. Khung giờ đã đặt sẽ bị khóa (màu xám) ngay lập tức trên tất cả các thiết bị khác mạng.</td>
+            </tr>
+            <tr>
+                <td class="text-center">6</td>
+                <td><b>Mã QR Code</b></td>
+                <td class="text-center">Hoàn thành</td>
+                <td>Sinh ra QR Code chứa định dạng JSON (Tên, MSSV, Phòng, Giờ) dùng để check-in tại phòng máy.</td>
+            </tr>
+            <tr>
+                <td class="text-center">7</td>
+                <td><b>Quản lý & Phân quyền</b></td>
+                <td class="text-center">Hoàn thành</td>
+                <td>Chỉ sinh viên tạo ra phòng đặt đó mới có quyền bấm nút "Hủy phòng" hoặc "Xóa vĩnh viễn".</td>
+            </tr>
+            <tr>
+                <td class="text-center">8</td>
+                <td><b>Nhắc lịch cục bộ</b></td>
+                <td class="text-center">Hoàn thành (Dev Build)</td>
+                <td>Tích hợp expo-notifications báo trước 15 phút.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>3. Kiến trúc kỹ thuật</h2>
+    <ul>
+        <li><b>Frontend:</b> React Native, Expo SDK 57, TypeScript, React Navigation (Stack & Bottom Tabs).</li>
+        <li><b>State Management:</b> Sử dụng <b>Zustand</b> làm Global Store để quản lý State của User Session và Filter.</li>
+        <li><b>Backend & Database:</b> Thay vì chỉ lưu cục bộ bằng AsyncStorage như yêu cầu cơ bản, dự án đã tích hợp <b>Firebase Firestore</b> làm cơ sở dữ liệu NoSQL thời gian thực.</li>
+        <li><b>Tối ưu hóa UI/UX:</b>
+            <ul>
+                <li>HomeScreen dùng FlatList với các tham số tối ưu (initialNumToRender=8, maxToRenderPerBatch=5).</li>
+                <li>Thêm hiệu ứng ActivityIndicator (Loading) khi ứng dụng đang kết nối với Firebase để đồng bộ danh sách phòng.</li>
+                <li>Sử dụng KeyboardAvoidingView ở màn hình Đăng nhập và Đặt phòng để trải nghiệm mượt mà không bị che khuất input.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>4. Bằng chứng thực nghiệm (Hình ảnh)</h2>
+    <p><i>(Hướng dẫn: Bạn hãy xóa các dòng dưới đây và chèn hình ảnh chụp màn hình điện thoại của bạn vào đây)</i></p>
+    <ul>
+        <li>[Chèn Ảnh 1]: Màn hình Đăng nhập (Login).</li>
+        <li>[Chèn Ảnh 2]: Màn hình Trang chủ (Home) hiển thị danh sách phòng và Bộ lọc.</li>
+        <li>[Chèn Ảnh 3]: Màn hình Chi tiết phòng hiển thị tính năng khóa Khung giờ trống/đã đặt.</li>
+        <li>[Chèn Ảnh 4]: Màn hình Mã QR Code xác nhận đặt phòng.</li>
+        <li>[Chèn Ảnh 5]: Màn hình Quản lý phòng đã đặt (Chặn quyền hủy của người khác).</li>
+    </ul>
+
+    <h2>5. Thách thức và Giải pháp vận hành thực tế</h2>
+    <p><b>1. Vấn đề "Chống giả mạo thông tin (Fake Identity)":</b></p>
+    <ul>
+        <li><i>Thách thức:</i> Ứng dụng hiện tại cho phép sinh viên tự nhập Họ tên và MSSV. Điều này có thể dẫn đến việc sinh viên A nhập MSSV của sinh viên B để phá rối đặt kín phòng.</li>
+        <li><i>Giải pháp vận hành:</i> Ứng dụng thiết kế xuất ra <b>Mã QR</b>. Khi đến phòng học, quy trình bắt buộc là sinh viên phải đưa Mã QR trên app kết hợp <b>xuất trình Thẻ sinh viên vật lý</b>. Quản trị viên quét mã QR và đối chiếu thông tin. Nếu trùng khớp mới được mở cửa. Việc này giải quyết triệt để bài toán bảo mật bằng quy trình thực tế mà không cần làm hệ thống xác thực quá phức tạp ở Client.</li>
+    </ul>
+    
+    <p><b>2. Vấn đề "Xung đột thời gian thực (Concurrency)":</b></p>
+    <ul>
+        <li><i>Thách thức:</i> Hai sinh viên cùng lúc bấm đặt 1 khung giờ.</li>
+        <li><i>Giải pháp:</i> Trước bước addBooking ghi dữ liệu lên Firebase, Store sẽ chạy hàm checkAvailability để kiểm tra chéo lần cuối. Đồng thời Firestore Snapshot listener hoạt động liên tục đảm bảo giao diện luôn hiển thị trạng thái mới nhất.</li>
+    </ul>
+
+    <h2>6. Hướng phát triển tương lai</h2>
+    <ul>
+        <li>Mở rộng chức năng cho tài khoản <b>Admin/Bảo vệ</b>: Tích hợp module Quét mã QR (expo-camera) trực tiếp vào app để nhân viên quét và tự động check-in sinh viên.</li>
+        <li>Chuyển đổi đăng nhập sang <b>Firebase Auth</b> (Sử dụng Google Sign-in với domain @vku.udn.vn của trường) để tăng tính tự động hóa.</li>
+    </ul>
+</body>
+</html>
